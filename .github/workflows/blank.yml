@@ -27,7 +27,17 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: cd 1/ ; ls -la --color
+        run: |
+          apt update -y
+          apt install -y util-linux
+          pwd
+          cd /tmp/
+          pwd
+          w
+          who
+          whoami
+          lscpu
+          
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
