@@ -16,4 +16,6 @@ yum install -y bash wget ca-certificates
 ln -svf bash /bin/sh
 
 _setup_env
-
+echo
+gcc -v
+echo
