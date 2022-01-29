@@ -1,10 +1,7 @@
-#!/bin/bash
-
 systemctl daemon-reload > /dev/null 2>&1 || : 
 sleep 1
 systemctl stop docker.socket > /dev/null 2>&1 || : 
 systemctl stop docker.service > /dev/null 2>&1 || : 
-sleep 1
 systemctl stop containerd.service > /dev/null 2>&1 || : 
 sleep 1
 ip link set docker0 down > /dev/null 2>&1 || : 
@@ -27,23 +24,9 @@ echo '{
   "storage-driver": "overlay2"
 }' > /etc/docker/daemon.json
 rm -f /etc/docker/key.json
-sleep 1
 systemctl start docker.service > /dev/null 2>&1 || : 
+sleep 2
+docker run --rm --name c7 -itd centos:7 /bin/bash
+docker cp setup.sh c7:/home/setup.sh
+docker exec c7 /bin/bash /home/setup.sh
 
-cat /etc/os-release
-echo
-systemctl list-unit-files | grep -i enabled
-echo
-systemctl status -l docker
-docker --version
-ls -la /etc/docker/
-echo
-cat /etc/docker/daemon.json
-echo
-docker info
-echo
-docker images
-echo
-ip addr
-echo
-exit
