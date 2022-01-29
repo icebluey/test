@@ -1,6 +1,4 @@
 #!/bin/bash
-apt update -y
-apt upgrade -fy
 cat /etc/os-release
 echo
 systemctl list-unit-files | grep -i enabled
@@ -12,4 +10,7 @@ echo
 cat /etc/docker/daemon.json
 echo
 docker info
+echo
+docker images
+echo
 exit
