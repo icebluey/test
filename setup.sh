@@ -21,3 +21,5 @@ gcc -v
 echo
 rpm -E %configure
 echo
+rpm -qa | grep -i '^kernel'
+echo
