@@ -30,3 +30,5 @@ docker run --rm --name c7 -itd centos:7 /bin/bash
 docker cp setup.sh c7:/home/setup.sh
 docker exec c7 /bin/bash /home/setup.sh
 
+exit
+#
