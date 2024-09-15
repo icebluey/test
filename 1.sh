@@ -17,6 +17,7 @@ apt autoremove --purge -y $(dpkg -l | grep -i -E 'docker|container' | awk '{prin
 
 echo
 echo
+snap list
 
 exit
 #
