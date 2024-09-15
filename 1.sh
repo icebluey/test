@@ -16,6 +16,10 @@ apt autoremove --purge -y $(dpkg -l | grep -i -E 'microsoft|libmono|mono-|monodo
 apt autoremove --purge -y $(dpkg -l | grep -i -E 'docker|container' | awk '{print $2}' | sort -V | uniq | paste -sd" ")
 /bin/rm -fr /etc/docker /usr/libexec/docker /etc/containerd /var/lib/containerd /var/lib/docker*
 
+# delete mysql postgresql php google-cloud
+apt autoremove --purge -y $(dpkg -l | awk '$2 ~ /mysql|postgresql|google-cloud|^php[1-9]/ {print $2}' |  grep -iv libmysqlclient | sort -V | uniq | paste -sd" ")
+/bin/rm -vfr /var/lib/postgresql /var/lib/mysql
+
 
 echo
 echo
