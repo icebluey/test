@@ -1,6 +1,8 @@
 apt update -y -qqq
 #apt upgrade -fy
 
+df -Th
+
 /bin/systemctl disable $(/bin/systemctl list-unit-files | grep -i -E 'docker|container|podman' | grep -iv 'container-getty' | awk '{print $1}' | sort -V | uniq | paste -sd" ")
 /bin/systemctl stop $(/bin/systemctl list-unit-files | grep -i -E 'docker|container|podman' | grep -iv 'container-getty' | awk '{print $1}' | sort -V | uniq | paste -sd" ")
 
@@ -18,6 +20,24 @@ apt autoremove --purge -y $(dpkg -l | grep -i -E 'docker|container' | awk '{prin
 echo
 echo
 snap list
+echo
+echo
+
+snap remove --purge $(snap list | awk 'NR > 1 && $1 !~ /lxd/ && $1 !~ /snapd/ {print $1}' | sort -V | uniq | paste -sd" ")
+snap remove --purge lxd
+snap remove --purge snapd
+
+systemctl disable snapd.service
+systemctl disable snapd.socket
+systemctl disable snapd.seeded.service
+
+systemctl stop snapd.service
+systemctl stop snapd.socket
+systemctl stop snapd.seeded.service
+
+
+
+df -Th
 
 exit
 #
