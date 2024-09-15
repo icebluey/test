@@ -23,6 +23,7 @@ snap list
 echo
 echo
 
+snap remove --purge lxd
 snap remove --purge $(snap list | awk 'NR > 1 && $1 !~ /lxd/ && $1 !~ /snapd/ {print $1}' | sort -V | uniq | paste -sd" ")
 snap remove --purge lxd
 snap remove --purge snapd
