@@ -1,12 +1,18 @@
-apt update -y
+apt update -y -qqq
 #apt upgrade -fy
-cat /etc/os-release
-#dpkg -l > /tmp/p.txt
-# delete dotnet
-apt autoremove --purge -y $(dpkg -l | grep -i dotnet | awk '{print $2}' | paste -sd" ")
-echo
-echo
-cat /tmp/p.txt
+
+systemctl list-unit-files | grep -i -E 'docker|container|pod'
+
+# delete firefox
+apt autoremove --purge -y $(dpkg -l | grep -i -E 'firefox|firebird' | awk '{print $2}' | sort -V | uniq | paste -sd" ")
+
+# delete microsoft
+apt autoremove --purge -y $(dpkg -l | grep -i microsoft | awk '{print $2}' | sort -V | uniq | paste -sd" ")
+
+# delete docker
+apt autoremove --purge -y $(dpkg -l | grep -i -E 'docker|container' | awk '{print $2}' | sort -V | uniq | paste -sd" ")
+rm -fr /etc/docker /etc/containerd /etc/containerd /var/lib/docker*
+
 echo
 echo
 
